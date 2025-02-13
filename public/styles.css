@@ -1,0 +1,382 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY & HTML */
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  color: #eee;
+  background: transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* FULL-SCREEN CANVAS (BACKGROUND) */
+#voidCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  pointer-events: none;
+  background: black;
+}
+
+/* FLOATING TITLE: NEMENTUM */
+.nementum-title {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 15px rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+
+/* Base .content style */
+.content {
+  background: rgba(34, 34, 34, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  color: #eee;
+  text-align: center;
+}
+
+/* Gap between consecutive .content blocks */
+.content + .content {
+  margin-top: 60px;
+}
+
+/* #about can keep small margin if desired */
+#about .content {
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+/* HERO: extra top margin for floating title */
+.hero-text {
+  margin-top: 280px;
+}
+.hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* CTA BUTTON */
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #d4af37, #ffffff, #9b59b6);
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  color: #000;
+  font-size: 1.2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.cta-button:hover {
+  background: linear-gradient(135deg, #ffffff, #d4af37, #9b59b6);
+  transform: scale(1.05);
+}
+.cta-button:active {
+  transform: scale(0.98);
+}
+
+/* ABOUT NEMENTUM bigger box */
+.about-intro-box {
+  padding: 40px;
+}
+.about-intro-box h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+.about-intro-box p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* STEP BOXES */
+.about-sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+.step-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+
+  background: rgba(34,34,34,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+
+  padding: 20px;
+  width: 100%;
+  max-width: 210px;
+  margin: 0 auto;
+  min-height: 340px;
+}
+.step-box-content {
+  margin-bottom: 20px;
+}
+.step-box-content h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.step-box-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+.step-box .cta-button {
+  align-self: center;
+  margin-top: auto;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  padding: 15px 25px;
+}
+
+/* EARN $NEMENTUM BOX */
+.special-crypto-box {
+  text-transform: uppercase;
+}
+.special-crypto-box h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+.special-crypto-box p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Shiny token ($NEMENTUM, A NEW AGE, etc.) */
+.shiny-token {
+  color: transparent;
+  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 1px #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
+  animation: shine 5s linear infinite;
+}
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* MISSION STATEMENT */
+.mission-content {
+  text-transform: uppercase;
+}
+.mission-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.mission-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* FIND US heading (shimmer) + extra margin below */
+.shiny-findus {
+  color: transparent;
+  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 1px #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
+  animation: shine 5s linear infinite;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Social icons container */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Circle backgrounds (80x80), icons (50x50) */
+.social-link {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.social-link:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+.social-link svg {
+  width: 50px;
+  height: 50px;
+  fill: #fff; 
+}
+.social-link:hover svg {
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+}
+
+/* FOOTER */
+footer.content {
+  text-align: center;
+}
+
+/* Hide elements by default when we add the .hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* ======================== MODAL POPUP STYLES ======================== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex; /* center .modal-content horizontally/vertically */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; 
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+}
+
+/* The popup box */
+.modal-content {
+  position: relative;
+  background: rgba(34,34,34,0.97);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+  backdrop-filter: blur(14px);
+  
+  max-width: 540px;
+  width: 90%;
+  padding: 50px;
+  text-align: center;
+  z-index: 1; 
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* modal subtitle if you want bigger text */
+.modal-subtitle {
+  margin: 10px 0 25px;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Make the email input bigger with consistent style */
+#waitlist-form input[type="email"] {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #666;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  width: 60%;
+  max-width: 280px;
+  margin-right: 10px;
+  outline: none;
+}
+#waitlist-form input[type="email"]::placeholder {
+  color: #aaa;
+}
+
+/* The SUBMIT button in the modal */
+#waitlist-form button {
+  padding: 12px 28px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  background: linear-gradient(135deg, #ffffff, #d4af37, #9b59b6);
+  cursor: pointer;
+  color: #000;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+#waitlist-form button:hover {
+  background: linear-gradient(135deg, #d4af37, #ffffff, #9b59b6);
+  transform: scale(1.05);
+}
+#waitlist-form button:active {
+  transform: scale(0.98);
+}
+
+/* OPTIONAL: Additional style for .about-app-box’s paragraphs (uppercase, bigger) */
+.app-text {
+  text-transform: uppercase;
+  font-size: 1.2rem; /* slightly bigger than default text */
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
