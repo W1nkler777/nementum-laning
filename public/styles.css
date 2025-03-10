@@ -12,7 +12,7 @@ html, body {
   font-family: 'Open Sans', sans-serif;
   color: #eee;
   background: transparent;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   overflow-y: auto;
 }
 
@@ -21,60 +21,94 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: -10;
   pointer-events: none;
   background: black;
 }
 
-/* FLOATING TITLE: NEMENTUM */
+/* NEMENTUM TITLE behind the content */
 .nementum-title {
   position: absolute;
-  top: 10%;
+  top: 50px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4rem;
+  transform: translateX(-50%);
+  z-index: -5; /* behind content, above canvas */
+  pointer-events: none;
+
+  /* Bigger & thicker */
+  font-size: 6rem; 
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 2px #fff;
-  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
-  background-size: cover;
+  white-space: nowrap; /* Remove if you prefer text wrapping on small screens */
+
+  /* Thick outline stroke */
+  -webkit-text-stroke: 3px #fff;
+  color: transparent; /* so the gradient shows through */
+
+  /* Diamond-shine gradient fill */
+  background: linear-gradient(
+    115deg,
+    #fefefe 0%,
+    #dcdcdc 20%,
+    #ffffff 40%,
+    #b4b4b4 60%,
+    #f2f2f2 80%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: 0 0 15px rgba(255,255,255,0.5);
-  pointer-events: none;
+
+  /* Subtle glow */
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.5),
+    0 0 16px rgba(255,255,255,0.3);
+
+  animation: diamondShine 3s linear infinite;
 }
 
-/* Base .content style */
+/* CONTENT BLOCKS
+   Default top margin for smaller screens is 220px,
+   so we can still see the background title.
+*/
 .content {
+  position: relative;
+  z-index: 2;            
+  width: 90%; 
+  max-width: 700px;
+  margin: 220px auto 60px auto; 
   background: rgba(34, 34, 34, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 30px;
-  max-width: 700px;
-  margin: 0 auto;
   box-shadow: 0 8px 16px rgba(0,0,0,0.5);
   backdrop-filter: blur(12px);
-  color: #eee;
   text-align: center;
+  color: #eee;
 }
 
-/* Gap between consecutive .content blocks */
+/* Increase top margin on DESKTOP for a bigger gap under the title */
+@media (min-width: 1024px) {
+  .content {
+    margin-top: 500px; /* Adjust this if you want more/less visible space */
+  }
+}
+
+/* For subsequent content blocks, just add 60px top margin */
 .content + .content {
   margin-top: 60px;
 }
 
-/* #about can keep small margin if desired */
+/* If you have a #about .content or hero-text with margin-top in the HTML */
 #about .content {
-  margin: 20px auto;
-  max-width: 700px;
+  margin-top: 60px; 
 }
 
-/* HERO: extra top margin for floating title */
+/* HERO SECTION */
 .hero-text {
-  margin-top: 280px;
+  margin-top: 0; 
 }
 .hero-text h1 {
   font-size: 2.5rem;
@@ -87,13 +121,26 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* CTA BUTTON */
+/* CTA BUTTON - Ultra-realistic chrome effect */
 .cta-button {
   display: inline-block;
-  background: linear-gradient(135deg, #d4af37, #ffffff, #9b59b6);
   border: 1px solid #fff;
   border-radius: 10px;
   padding: 15px 30px;
+
+  /* Multi-stop gradient with a “chrome” style + animation */
+  background: linear-gradient(
+    135deg,
+    #f6f6f6 0%,
+    #cfcfcf 20%,
+    #f9f9f9 40%,
+    #b4b4b4 60%,
+    #ececec 80%,
+    #f6f6f6 100%
+  );
+  background-size: 200% 200%;
+  animation: chromeShine 4s linear infinite;
+
   color: #000;
   font-size: 1.2rem;
   font-family: 'Orbitron', sans-serif;
@@ -104,15 +151,25 @@ html, body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+@keyframes chromeShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 .cta-button:hover {
-  background: linear-gradient(135deg, #ffffff, #d4af37, #9b59b6);
   transform: scale(1.05);
 }
 .cta-button:active {
   transform: scale(0.98);
 }
 
-/* ABOUT NEMENTUM bigger box */
+/* ABOUT BOX */
 .about-intro-box {
   padding: 40px;
 }
@@ -133,26 +190,23 @@ html, body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
-  margin: 20px auto;
-  max-width: 700px;
+  margin-top: 20px;
 }
 .step-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  text-align: left;
-
   background: rgba(34,34,34,0.8);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.5);
   backdrop-filter: blur(12px);
 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
   padding: 20px;
   width: 100%;
   max-width: 210px;
-  margin: 0 auto;
   min-height: 340px;
 }
 .step-box-content {
@@ -187,23 +241,6 @@ html, body {
   line-height: 1.6;
 }
 
-/* Shiny token ($NEMENTUM, A NEW AGE, etc.) */
-.shiny-token {
-  color: transparent;
-  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-stroke: 1px #fff;
-  text-shadow: 0 0 8px rgba(255,255,255,0.5);
-  animation: shine 5s linear infinite;
-}
-@keyframes shine {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 /* MISSION STATEMENT */
 .mission-content {
   text-transform: uppercase;
@@ -218,28 +255,49 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* FIND US heading (shimmer) + extra margin below */
-.shiny-findus {
-  color: transparent;
-  background: linear-gradient(45deg, #d4af37, #ffffff, #9b59b6, #d4af37);
+/* Diamond-shine class for special text ($NEMENTUM, NEW AGE, etc.) */
+.diamond-shine {
+  background: linear-gradient(
+    115deg,
+    #fefefe 0%,
+    #dcdcdc 20%,
+    #ffffff 40%,
+    #b4b4b4 60%,
+    #f2f2f2 80%,
+    #ffffff 100%
+  );
   background-size: 200% 200%;
-  background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-stroke: 1px #fff;
-  text-shadow: 0 0 8px rgba(255,255,255,0.5);
-  animation: shine 5s linear infinite;
-  display: inline-block;
-  margin-bottom: 20px;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,0.7),
+    0 0 10px rgba(255,255,255,0.5),
+    0 0 20px rgba(255,255,255,0.3);
+
+  animation: diamondShine 3s linear infinite;
+  font-weight: bold;
+}
+@keyframes diamondShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Social icons container */
+/* FIND US (SOCIAL ICONS) */
 .social-icons {
   display: flex;
   justify-content: center;
   gap: 30px;
 }
-
-/* Circle backgrounds (80x80), icons (50x50) */
 .social-link {
   width: 80px;
   height: 80px;
@@ -274,19 +332,18 @@ footer.content {
   display: none !important;
 }
 
-/* ======================== MODAL POPUP STYLES ======================== */
+/* MODAL POPUP STYLES */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex; /* center .modal-content horizontally/vertically */
+  display: flex; 
   align-items: center;
   justify-content: center;
   z-index: 9999; 
 }
-
 .modal-overlay {
   position: absolute;
   top: 0;
@@ -295,8 +352,6 @@ footer.content {
   height: 100%;
   background: rgba(0,0,0,0.75);
 }
-
-/* The popup box */
 .modal-content {
   position: relative;
   background: rgba(34,34,34,0.97);
@@ -313,15 +368,11 @@ footer.content {
   font-size: 1.2rem;
   line-height: 1.6;
 }
-
-/* modal subtitle if you want bigger text */
 .modal-subtitle {
   margin: 10px 0 25px;
   font-size: 1.1rem;
   color: #ccc;
 }
-
-/* Close button */
 .close-button {
   position: absolute;
   top: 15px;
@@ -334,7 +385,7 @@ footer.content {
   outline: none;
 }
 
-/* Make the email input bigger with consistent style */
+/* Waitlist form */
 #waitlist-form input[type="email"] {
   padding: 12px 15px;
   border-radius: 8px;
@@ -350,8 +401,6 @@ footer.content {
 #waitlist-form input[type="email"]::placeholder {
   color: #aaa;
 }
-
-/* The SUBMIT button in the modal */
 #waitlist-form button {
   padding: 12px 28px;
   font-family: 'Orbitron', sans-serif;
@@ -359,24 +408,87 @@ footer.content {
   text-transform: uppercase;
   border-radius: 8px;
   border: 1px solid #fff;
-  background: linear-gradient(135deg, #ffffff, #d4af37, #9b59b6);
+  background: linear-gradient(
+    135deg,
+    #f6f6f6 0%,
+    #cfcfcf 20%,
+    #f9f9f9 40%,
+    #b4b4b4 60%,
+    #ececec 80%,
+    #f6f6f6 100%
+  );
+  background-size: 200% 200%;
+  animation: chromeShine 4s linear infinite; /* reuse the same keyframes as .cta-button */
   cursor: pointer;
   color: #000;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 #waitlist-form button:hover {
-  background: linear-gradient(135deg, #d4af37, #ffffff, #9b59b6);
   transform: scale(1.05);
 }
 #waitlist-form button:active {
   transform: scale(0.98);
 }
 
-/* OPTIONAL: Additional style for .about-app-box’s paragraphs (uppercase, bigger) */
+/* about-app-box paragraphs */
 .app-text {
   text-transform: uppercase;
-  font-size: 1.2rem; /* slightly bigger than default text */
+  font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 20px;
+}
+
+/* MEDIA QUERY FOR MOBILE (MAX WIDTH 600PX)
+   Already smaller top margin (220px) by default, so no need for further changes here.
+*/
+@media (max-width: 600px) {
+  .content {
+    margin-top: 220px;
+    width: 90%; 
+    max-width: 100%; 
+    padding: 20px;
+  }
+
+  .nementum-title {
+    font-size: 2rem;    
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80vw;
+    white-space: normal; /* allow wrapping on small screens */
+    text-align: center;
+    -webkit-text-stroke: 1px #fff; /* Slightly thinner stroke on small screens */
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem; /* smaller for mobile */
+  }
+
+  .about-sections {
+    flex-direction: column;
+    align-items: center;
+  }
+  .step-box {
+    width: 90%;
+    max-width: 400px;
+    margin: 10px 0;
+    min-height: auto;
+  }
+
+  .step-box-content h3 {
+    font-size: 1.2rem;
+  }
+  .step-box-content p,
+  .about-intro-box p,
+  .mission-content p,
+  .special-crypto-box p {
+    font-size: 1rem; 
+    line-height: 1.6;
+  }
+
+  .cta-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
 }

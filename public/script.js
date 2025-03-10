@@ -17,7 +17,7 @@ const eventHorizon = 80;
 
 let particles = [];
 const liquidMetalImage = new Image();
-liquidMetalImage.src = "images/liquid-metal-texture.jpg"; // Path to your image
+liquidMetalImage.src = "images/fdf73023b7548e2c608627945c21da5a.jpg"; // Path to your image
 
 // Load custom font
 const fontFamily = "Orbitron";
@@ -105,39 +105,14 @@ function closeSignupForm() {
   }
 }
 
-// ===== HANDLE THE WAITLIST FORM SUBMISSION =====
+// ===== DISABLE THE WAITLIST FORM SUBMISSION =====
 document.addEventListener('DOMContentLoaded', function() {
   const waitlistForm = document.getElementById('waitlist-form');
   if (waitlistForm) {
-    waitlistForm.addEventListener('submit', async (event) => {
+    waitlistForm.addEventListener('submit', (event) => {
       event.preventDefault();
-
-      const emailInput = waitlistForm.querySelector('input[name="email"]');
-      const email = emailInput.value.trim();
-
-      // IMPORTANT: If you don't have a server on 127.0.0.1:8080 with POST /api/waitlist,
-      // you'll get a 405 or fetch error. Adjust to your actual backend URL if different.
-      const serverUrl = '/api/waitlist';
-
-      try {
-        const response = await fetch(serverUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        const data = await response.json();
-
-        if (data.success) {
-          alert('Thank you! You have been added to the waitlist.');
-          emailInput.value = '';
-          closeSignupForm();
-        } else {
-          alert('Oops! Something went wrong. Please try again.');
-        }
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred. Please try again later.');
-      }
+      alert('Waitlist feature is temporarily disabled.');
+      closeSignupForm();
     });
   }
 });
